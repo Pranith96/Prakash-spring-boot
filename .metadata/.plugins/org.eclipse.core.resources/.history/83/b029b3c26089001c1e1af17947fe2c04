@@ -1,0 +1,12 @@
+package com.student.entity;
+
+public class Student {
+
+	private Integer studentId;
+	private String name;
+	private String mobileNumber;
+	private String email;
+	private String loginId;
+	private String passowrd;
+
+}

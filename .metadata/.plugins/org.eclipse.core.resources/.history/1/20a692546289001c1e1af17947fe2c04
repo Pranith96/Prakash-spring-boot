@@ -1,0 +1,16 @@
+package com.student.service;
+
+import org.springframework.stereotype.Service;
+
+import com.student.entity.Student;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	@Override
+	public String saveStudent(Student student) {
+		return null;
+	}
+
+	
+}
