@@ -6,9 +6,9 @@ import com.student.entity.Student;
 
 public interface StudentService {
 
-	Student saveStudent(Student student);
+	String saveStudent(Student student);
 
-	Student getStudentDetails();
+	Student getStudentDetails(Integer studentId);
 
 	List<Student> getAllStudentDetails();
 
