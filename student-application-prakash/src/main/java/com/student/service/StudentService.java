@@ -12,4 +12,8 @@ public interface StudentService {
 
 	List<Student> getAllStudentDetails();
 
+	List<Student> getStudentDetailsByName(String name);
+
+	Student getStudentLogin(String loginId, String password);
+
 }

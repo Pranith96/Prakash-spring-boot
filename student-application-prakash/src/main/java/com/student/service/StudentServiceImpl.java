@@ -42,4 +42,21 @@ public class StudentServiceImpl implements StudentService {
 		return studentResponse;
 	}
 
+	@Override
+	public List<Student> getStudentDetailsByName(String name) {
+		List<Student> response = studentRepository.findByName(name);
+		if (response.isEmpty() || response == null) {
+			throw new RuntimeException("Data is not found");
+		}
+		return response;
+	}
+
+	@Override
+	public Student getStudentLogin(String loginId, String password) {
+		Optional<Student> response = studentRepository.findByLoginIdAndPassword(loginId, password);
+		if (!response.isPresent()) {
+			throw new RuntimeException("Data doesnot match to fetch result");
+		}
+		return response.get();
+	}
 }

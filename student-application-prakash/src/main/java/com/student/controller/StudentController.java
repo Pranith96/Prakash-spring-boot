@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.student.entity.Student;
@@ -39,4 +40,24 @@ public class StudentController {
 		List<Student> response = studentService.getAllStudentDetails();
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
+
+	@GetMapping("/name/{name}")
+	public ResponseEntity<List<Student>> getStudentDetailsByName(@PathVariable("name") String name) {
+		List<Student> response = studentService.getStudentDetailsByName(name);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@GetMapping("/login/{loginId}/{password}")
+	public ResponseEntity<Student> getStudentLogin(@PathVariable("loginId") String loginId,
+			@PathVariable("password") String password) {
+		Student response = studentService.getStudentLogin(loginId, password);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@GetMapping("/get/data")
+	public ResponseEntity<Student> getStudentData(@RequestParam("studentId") Integer studentId) {
+		Student response = studentService.getStudentDetails(studentId);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
 }
