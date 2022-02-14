@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.student.dto.StudentDto;
 import com.student.entity.Student;
 import com.student.service.StudentService;
 
@@ -30,8 +32,8 @@ public class StudentController {
 	}
 
 	@GetMapping("/get/{studentId}")
-	public ResponseEntity<Student> getStudent(@PathVariable("studentId") Integer studentId) {
-		Student response = studentService.getStudentDetails(studentId);
+	public ResponseEntity<StudentDto> getStudent(@PathVariable("studentId") Integer studentId) {
+		StudentDto response = studentService.getStudentDetails(studentId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
@@ -55,8 +57,14 @@ public class StudentController {
 	}
 	
 	@GetMapping("/get/data")
-	public ResponseEntity<Student> getStudentData(@RequestParam("studentId") Integer studentId) {
-		Student response = studentService.getStudentDetails(studentId);
+	public ResponseEntity<StudentDto> getStudentData(@RequestParam("studentId") Integer studentId) {
+		StudentDto response = studentService.getStudentDetails(studentId);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@DeleteMapping("/delete/{studentId}")
+	public ResponseEntity<String> deleteStudentById(@PathVariable("studentId") Integer studentId){
+		String response = studentService.deleteByStudentId(studentId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	

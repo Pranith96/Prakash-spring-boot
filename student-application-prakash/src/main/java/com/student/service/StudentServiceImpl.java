@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.student.dto.StudentDto;
 import com.student.entity.Student;
 import com.student.respository.StudentRepository;
 
@@ -25,12 +26,18 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Student getStudentDetails(Integer studentId) {
+	public StudentDto getStudentDetails(Integer studentId) {
 		Optional<Student> response = studentRepository.findById(studentId);
 		if (!response.isPresent()) {
 			throw new RuntimeException("Student Details Not Exists in database for" + studentId);
 		}
-		return response.get();
+
+		StudentDto studentDto = new StudentDto();
+		studentDto.setName(response.get().getName());
+		studentDto.setMobileNumber(response.get().getMobileNumber());
+		studentDto.setEmail(response.get().getEmail());
+		studentDto.setLoginId(response.get().getLoginId());
+		return studentDto;
 	}
 
 	@Override
@@ -44,7 +51,11 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> getStudentDetailsByName(String name) {
-		List<Student> response = studentRepository.findByName(name);
+		// below is JPA query
+		// List<Student> response = studentRepository.findByName(name);
+
+		// Below is JPQL query method
+		List<Student> response = studentRepository.getByName(name);
 		if (response.isEmpty() || response == null) {
 			throw new RuntimeException("Data is not found");
 		}
@@ -58,5 +69,15 @@ public class StudentServiceImpl implements StudentService {
 			throw new RuntimeException("Data doesnot match to fetch result");
 		}
 		return response.get();
+	}
+
+	@Override
+	public String deleteByStudentId(Integer studentId) {
+		Optional<Student> response = studentRepository.findById(studentId);
+		if (!response.isPresent()) {
+			throw new RuntimeException("Student Details Not Exists in database for" + studentId);
+		}
+		studentRepository.deleteById(studentId);
+		return "Successfully deleted";
 	}
 }
