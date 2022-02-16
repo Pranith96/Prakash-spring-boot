@@ -19,4 +19,8 @@ public interface StudentService {
 
 	String deleteByStudentId(Integer studentId);
 
+	String updateStudent(Student student);
+
+	String updateStudentNameById(Integer studentId, String studentName);
+
 }

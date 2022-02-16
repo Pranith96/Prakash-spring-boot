@@ -3,6 +3,8 @@ package com.student.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.student.entity.Student;
 import com.student.respository.StudentRepository;
 
 @Service
+@Transactional
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
@@ -18,6 +21,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public String saveStudent(Student student) {
+		student.setStatus("ACTIVE");
 		Student response = studentRepository.save(student);
 		if (response == null) {
 			return "Student data not saved";
@@ -80,4 +84,40 @@ public class StudentServiceImpl implements StudentService {
 		studentRepository.deleteById(studentId);
 		return "Successfully deleted";
 	}
+
+	@Override
+	public String updateStudent(Student student) {
+		Optional<Student> response = studentRepository.findById(student.getStudentId());
+		if (!response.isPresent()) {
+			throw new RuntimeException("Student Details Not Exists in database");
+		}
+
+		if (student.getName() != null) {
+			response.get().setName(student.getName());
+		}
+		if (student.getMobileNumber() != null) {
+			response.get().setMobileNumber(student.getMobileNumber());
+		}
+		if (student.getEmail() != null) {
+			response.get().setEmail(student.getEmail());
+		}
+		if (student.getLoginId() != null) {
+			response.get().setLoginId(student.getLoginId());
+		}
+		if (student.getPassword() != null) {
+			response.get().setPassword(student.getPassword());
+		}
+
+		studentRepository.save(response.get());
+
+		return "Updated successfully";
+	}
+
+	@Override
+	@Transactional
+	public String updateStudentNameById(Integer studentId, String studentName) {
+		studentRepository.updateStudentName(studentId, studentName);
+		return "Updated successfully";
+	}
+
 }
