@@ -6,14 +6,17 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.student.dto.StudentDto;
 import com.student.entity.Student;
+import com.student.exceptions.StudentNotFoundException;
 import com.student.respository.StudentRepository;
 
 @Service
 @Transactional
+@Profile(value = { "dev", "prod", "qa", "local" })
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
@@ -33,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
 	public StudentDto getStudentDetails(Integer studentId) {
 		Optional<Student> response = studentRepository.findById(studentId);
 		if (!response.isPresent()) {
-			throw new RuntimeException("Student Details Not Exists in database for" + studentId);
+			throw new StudentNotFoundException("Student Details Not Exists in database for" + studentId);
 		}
 
 		StudentDto studentDto = new StudentDto();
@@ -48,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> getAllStudentDetails() {
 		List<Student> studentResponse = studentRepository.findAll();
 		if (null == studentResponse || studentResponse.isEmpty()) {
-			throw new RuntimeException("Data is not exists");
+			throw new StudentNotFoundException("Data is not exists");
 		}
 		return studentResponse;
 	}
@@ -61,7 +64,7 @@ public class StudentServiceImpl implements StudentService {
 		// Below is JPQL query method
 		List<Student> response = studentRepository.getByName(name);
 		if (response.isEmpty() || response == null) {
-			throw new RuntimeException("Data is not found");
+			throw new StudentNotFoundException("Data is not found");
 		}
 		return response;
 	}
@@ -70,7 +73,7 @@ public class StudentServiceImpl implements StudentService {
 	public Student getStudentLogin(String loginId, String password) {
 		Optional<Student> response = studentRepository.findByLoginIdAndPassword(loginId, password);
 		if (!response.isPresent()) {
-			throw new RuntimeException("Data doesnot match to fetch result");
+			throw new StudentNotFoundException("Data doesnot match to fetch result");
 		}
 		return response.get();
 	}
@@ -79,7 +82,7 @@ public class StudentServiceImpl implements StudentService {
 	public String deleteByStudentId(Integer studentId) {
 		Optional<Student> response = studentRepository.findById(studentId);
 		if (!response.isPresent()) {
-			throw new RuntimeException("Student Details Not Exists in database for" + studentId);
+			throw new StudentNotFoundException("Student Details Not Exists in database for" + studentId);
 		}
 		studentRepository.deleteById(studentId);
 		return "Successfully deleted";
@@ -89,7 +92,7 @@ public class StudentServiceImpl implements StudentService {
 	public String updateStudent(Student student) {
 		Optional<Student> response = studentRepository.findById(student.getStudentId());
 		if (!response.isPresent()) {
-			throw new RuntimeException("Student Details Not Exists in database");
+			throw new StudentNotFoundException("Student Details Not Exists in database");
 		}
 
 		if (student.getName() != null) {

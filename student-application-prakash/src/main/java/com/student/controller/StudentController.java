@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.student.dto.StudentDto;
 import com.student.entity.Student;
+import com.student.exceptions.StudentNotFoundException;
 import com.student.service.StudentService;
 
 @RestController

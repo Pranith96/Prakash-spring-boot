@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.student.dto.StudentDto;
 import com.student.entity.Student;
+import com.student.exceptions.StudentNotFoundException;
 
 public interface StudentService {
 
 	String saveStudent(Student student);
 
-	StudentDto getStudentDetails(Integer studentId);
+	StudentDto getStudentDetails(Integer studentId) ;
 
 	List<Student> getAllStudentDetails();
 
