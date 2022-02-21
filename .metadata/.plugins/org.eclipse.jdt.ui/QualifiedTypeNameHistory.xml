@@ -29,4 +29,5 @@
     <fullyQualifiedTypeName name="com.student.exceptions.ExceptionResponse"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="springfox.documentation.swagger2.annotations.EnableSwagger2"/>
 </qualifiedTypeNameHistroy>
