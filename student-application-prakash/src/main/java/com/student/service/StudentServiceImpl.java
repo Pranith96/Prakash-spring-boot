@@ -25,6 +25,7 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public String saveStudent(Student student) {
 		student.setStatus("ACTIVE");
+		student.getAddress().setStudent(student);
 		Student response = studentRepository.save(student);
 		if (response == null) {
 			return "Student data not saved";
