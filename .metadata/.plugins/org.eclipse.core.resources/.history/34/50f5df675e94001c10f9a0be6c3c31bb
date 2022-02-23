@@ -1,0 +1,9 @@
+package com.student.entity;
+
+public class College {
+
+	private Integer collegeId;
+	private String collegeName;
+	private String unversity;
+
+}

@@ -1,5 +1,7 @@
 package com.student.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,12 +9,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * @author ramannpr
+ *
+ */
 @Entity
 @Table(name = "student_table")
 @ApiModel(description = "Details About the Student Accounts")
@@ -44,6 +53,31 @@ public class Student {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id")
 	private Address address;
+
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = College.class)
+	@JoinColumn(name = "college_id")
+	private College college;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "student_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "course_id") })
+	private List<Course> course;
+
+	public List<Course> getCourse() {
+		return course;
+	}
+
+	public void setCourse(List<Course> course) {
+		this.course = course;
+	}
+
+	public College getCollege() {
+		return college;
+	}
+
+	public void setCollege(College college) {
+		this.college = college;
+	}
 
 	public Address getAddress() {
 		return address;
