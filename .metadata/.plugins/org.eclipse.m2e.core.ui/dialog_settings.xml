@@ -3,6 +3,8 @@
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
 			<item value="C:\Users\ramannpr\spring_boot_applications\bank-application"/>
+			<item value="C:\Users\ramannpr\Spring_files\spring files_2\SpringBootJunit"/>
+			<item value="C:\Users\ramannpr\spring_boot_applications\springbooth2databse"/>
 			<item value="C:\Users\ramannpr\support_works\Gokulraj-prakash-springboot-microservices\student-application-prakash"/>
 		</list>
 		<list key="projectNameTemplate">
