@@ -1,5 +1,7 @@
 package com.online.ecommerce.application.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,9 @@ import com.online.ecommerce.application.service.AddCartService;
 @RequestMapping("/cart")
 public class AddCartController {
 
+	private static final Logger log = LoggerFactory.getLogger(AddCartController.class);
+
+	
 	@Autowired
 	AddCartService addCartService;
 
@@ -31,7 +36,9 @@ public class AddCartController {
 		System.out.println(productId);
 		Cart responseItem = null;
 		Product productDetails = null;
+		log.info("product service calling....");
 		String productServiceGetOrderURL = "http://localhost:9999/product/get/{productId}";
+		log.info("product service called....");
 		try {
 			productDetails = restTemplate.getForObject(productServiceGetOrderURL, Product.class, productId);
 		} catch (ResourceAccessException ex) {
@@ -52,8 +59,9 @@ public class AddCartController {
 				System.out.println(updatedStockQuantity);
 				productDetails.setStockQuantity(updatedStockQuantity);
 				String productServiceUpdateURL = "http://localhost:9999/product/update/details";
+				log.info("product update service calling...."+productServiceUpdateURL);
 				restTemplate.put(productServiceUpdateURL, productDetails);
-
+				log.info("product update service called...."+productServiceUpdateURL);
 			} catch (Exception e) {
 				throw new Exception("enter less quantity or product does not exist", e);
 			}
@@ -66,9 +74,10 @@ public class AddCartController {
 
 	@GetMapping("/getproductdetails")
 	public ResponseEntity<Product[]> getAllProducts() {
+		log.info("product service calling for get all operation....");
 		String url = "http://localhost:9999/product/get";
 		Product[] productDetails = restTemplate.getForObject(url, Product[].class);
-
+		log.info("product service called for get all operation....");
 		return ResponseEntity.status(HttpStatus.OK).body(productDetails);
 	}
 

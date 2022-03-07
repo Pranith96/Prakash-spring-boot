@@ -1,9 +1,0 @@
-package com.student.entity;
-
-public class Course {
-
-	private Integer courseId;
-	private String courseName;
-	private String author;
-
-}

@@ -2,6 +2,10 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\ramannpr\support_works\Gokulraj-prakash-springboot-microservices\ecommerce-product-service"/>
+			<item value="C:\Users\ramannpr\support_works\Gokulraj-prakash-springboot-microservices\ecommerce-shared-lib"/>
+			<item value="C:\Users\ramannpr\support_works\Gokulraj-prakash-springboot-microservices\ecommerce-cart-service"/>
+			<item value="C:\Users\ramannpr\support_works\beka-microservices\microservices\ecommerce-cart-service"/>
 			<item value="C:\Users\ramannpr\spring_boot_applications\bank-application"/>
 			<item value="C:\Users\ramannpr\Spring_files\spring files_2\SpringBootJunit"/>
 			<item value="C:\Users\ramannpr\spring_boot_applications\springbooth2databse"/>
