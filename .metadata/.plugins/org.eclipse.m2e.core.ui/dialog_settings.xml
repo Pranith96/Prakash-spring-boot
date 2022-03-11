@@ -2,6 +2,9 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\ramannpr\support_works\beka-microservices\microservices\ecommerce-zuul-apigateway"/>
+			<item value="C:\Users\ramannpr\support_works\beka-microservices\microservices\zipkin-server"/>
+			<item value="C:\Users\ramannpr\support_works\beka-microservices\microservices\eurekaserver"/>
 			<item value="C:\Users\ramannpr\support_works\Gokulraj-prakash-springboot-microservices\ecommerce-product-service"/>
 			<item value="C:\Users\ramannpr\support_works\Gokulraj-prakash-springboot-microservices\ecommerce-shared-lib"/>
 			<item value="C:\Users\ramannpr\support_works\Gokulraj-prakash-springboot-microservices\ecommerce-cart-service"/>
