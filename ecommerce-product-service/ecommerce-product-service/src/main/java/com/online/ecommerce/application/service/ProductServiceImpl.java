@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		System.out.println(product);
-		Product response = productRepository.save(product);
+		Product response = productRepository.save(productResponse.get());
 		return response;
 	}
 

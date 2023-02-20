@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+eureka:
+  client:
+    eureka-server-port: 8761
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${eureka_host:localhost}:${eureka_port:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 60000
+##This property has to be true, so that it uses the IP address, instead of localhost or 127.0.0.1
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: api-gateway-application
+  cloud:
+    gateway:
+      routes:
+      - id: user-service
+        uri: http://user-service:8082
+        predicates:
+        - Path=/user/**
+      - id: ticket-booking-service
+        uri: http://ticket-booking-service:8084
+        predicates:
+        - Path=/ticket/**
+      - id: flight-service
+        uri: http://flight-service:8083
+        predicates:
+        - Path=/flight/**

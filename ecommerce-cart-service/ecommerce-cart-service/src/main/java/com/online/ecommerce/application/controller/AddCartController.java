@@ -35,26 +35,26 @@ public class AddCartController {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Value("${ecommerce-zuul-apigateway.serviceid}")
-	private String ecommerceApiGateWay;
+	//@Value("${ecommerce-zuul-apigateway.serviceid}")
+	//private String ecommerceApiGateWay;
 
-	@Autowired
-	private EurekaClient eurekaClient;
+//	@Autowired
+//	private EurekaClient eurekaClient;
 
 	@PostMapping(value = "/add")
 	public ResponseEntity<Cart> addCart(@RequestBody Cart cart) throws Exception {
 		Integer productId = cart.getProductId();
 		System.out.println(productId);
 		Cart responseItem = null;
-		Application application = eurekaClient.getApplication(ecommerceApiGateWay);
-		InstanceInfo instanceInfo = application.getInstances().get(0);
-		String productServiceURL = ServiceUrlBuilder.constructUrl(ecommerceApiGateWay, instanceInfo.getPort(),
-				"/product/get/", String.valueOf(productId));
-		// String productServiceGetOrderURL =  "http://localhost:9999/product/get/{productId}";
-		// Product productDetails = restTemplate.getForObject(productServiceGetOrderURL,
-		// Product.class, productId);
+		//Application application = eurekaClient.getApplication(ecommerceApiGateWay);
+		//InstanceInfo instanceInfo = application.getInstances().get(0);
+		//String productServiceURL = ServiceUrlBuilder.constructUrl(ecommerceApiGateWay, instanceInfo.getPort(),
+		//		"/product/get/", String.valueOf(productId));
+		 String productServiceGetOrderURL =  "http://localhost:9999/product/get/{productId}";
+		 Product productDetails = restTemplate.getForObject(productServiceGetOrderURL,
+		 Product.class, productId);
 		log.info("product service calling....");
-		Product productDetails = restTemplate.getForObject(productServiceURL, Product.class);
+		//Product productDetails = restTemplate.getForObject(productServiceURL, Product.class);
 		log.info("product service called....");
 
 		System.out.println(productDetails);
@@ -71,9 +71,9 @@ public class AddCartController {
 				Integer updatedStockQuantity = productDetails.getStockQuantity() - cart.getQuantity();
 				System.out.println(updatedStockQuantity);
 				productDetails.setStockQuantity(updatedStockQuantity);
-				String productServiceUpdateURL = ServiceUrlBuilder.constructUrl(ecommerceApiGateWay,
-						instanceInfo.getPort(), "/product/update/details", null);
-				 //String productServiceUpdateURL = "http://localhost:9999/product/update/details";
+				//String productServiceUpdateURL = ServiceUrlBuilder.constructUrl(ecommerceApiGateWay,
+					//	instanceInfo.getPort(), "/product/update/details", null);
+				 String productServiceUpdateURL = "http://localhost:9999/product/update/details";
 				log.info("product update service calling...."+productServiceUpdateURL);
 				restTemplate.put(productServiceUpdateURL, productDetails);
 				log.info("product update service called....");
